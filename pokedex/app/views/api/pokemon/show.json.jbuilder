@@ -1,7 +1,18 @@
 json.pokemon do 
-  json.partial! 'api/pokemon/pokemon', pokemon: @pokemon 
-  json.image_url asset_path("pokemon_snaps/#{@pokemon.image_url}")
+  json.set! @pokemon.id do 
+    json.extract! @pokemon, :id, :name, :attack, :defense, :poke_type
+    json.image_url asset_path("pokemon_snaps/#{@pokemon.image_url}")
+  end
 end
-json.items @pokemon.items.each do |item|
-  json.set! item.id, item
+
+json.moves do 
+    @pokemon.moves.each do |move|
+        json.set! move.id, move, :id, :name
+    end
+end
+
+json.items do 
+    @pokemon.items.each do |item|
+        json.set! item.id, item, :id, :pokemon_id, :name, :price, :happiness, :image_url
+    end
 end
