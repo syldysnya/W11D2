@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import PokemonDetail from './pokemon_detail';
 
 export const PokemonIndexItem = (props) => {
+    debugger
     return (
         <li className="pokemon-index-item">
-            <span>{props.pokemon.id}</span>
-            <img src={props.pokemon.imageUrl}/>
-            <span>{props.pokemon.name}</span>
+            <Link to="pokemon/:pokemonId">
+                <PokemonDetail key={props.pokemon.id} pokemon={props.pokemon}/>
+            </Link>
         </li>
     )
 }
